@@ -1,9 +1,12 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS list;
+
 CREATE TABLE user (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 username TEXT UNIQUE NOT NULL,
 password TEXT NOT NULL,
-first_name TEXT NOT NULL,
-second_name TEXT NOT NULL
+first_name TEXT,
+second_name TEXT
 );
 
 CREATE TABLE list (
