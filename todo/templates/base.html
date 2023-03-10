@@ -21,7 +21,32 @@
     {% endfor %}
     {% block content %}
         {% if g.user %}
-            Hello {{ g.user['username'] }}! it's to-do list app
+            Hello {{ g.user['username'] }}! It's your to-do list
+                <div>
+                    <form method="post">
+                        <hr>
+                        <a>New task:</a>
+                        <br>
+                        <label for="title">Title</label>
+                        <input id="title" name="title">
+
+                        <label for="priority">Priority</label>
+                        <select id="priority" name="priority">
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+
+                        <input type="submit" value="Save">
+                        <hr>
+                    </form>
+                </div>
+            {% for task in tasks %}
+                <p><input type="checkbox" id="task" name="task">
+                <label for="task">{{task['title'], task['status'], task['priority'] }}</label>
+                </p>
+            {% endfor %}
+                <input type="submit" value="Done">
         {% else %}
             Hello unknown person, it's to-do list. Please log in or register.
         {% endif %}
