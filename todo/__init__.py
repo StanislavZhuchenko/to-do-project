@@ -1,5 +1,5 @@
 import os
-from . import db, user, index
+from . import db, user, index, detailstask
 
 from flask import Flask
 
@@ -30,5 +30,7 @@ def create_app(test_config=None):
     app.register_blueprint(user.bp)
 
     app.register_blueprint(index.bp)
+
+    app.register_blueprint(detailstask.bp)
 
     return app

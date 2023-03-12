@@ -23,7 +23,7 @@
         {% if g.user %}
             Hello {{ g.user['username'] }}! It's your to-do list
                 <div>
-                    <form method="post">
+                    <form method="post" action="{{ url_for('index.index') }}">
                         <hr>
                         <a>New task:</a>
                         <br>
@@ -32,8 +32,7 @@
 
                         <label for="priority">Priority</label>
                         <select id="priority" name="priority">
-                            <option value="Low">Low</option>
-                            <option value="Medium">Medium</option>
+                            <option value=""></option>
                             <option value="High">High</option>
                         </select>
 
@@ -41,12 +40,21 @@
                         <hr>
                     </form>
                 </div>
-            {% for task in tasks %}
-                <p><input type="checkbox" id="task" name="task">
-                <label for="task">{{task['title'], task['status'], task['priority'] }}</label>
-                </p>
-            {% endfor %}
-                <input type="submit" value="Done">
+            {% if tasks %}
+                <form method="post" action="{{ url_for('index.removetask') }}">
+                    {% for task in tasks %}
+                        <input type="checkbox" id="task" name="task" value="{{ task['id'] }}">
+                        <label for="task">
+                            <a href="{{ url_for('detailstask.current_task', id=task['id']) }}" >{{task['title']}}</a>
+                        <label>
+                        <br>
+                    {% endfor %}
+
+                    <input type="submit" value="Done">
+                </form>
+            {% endif %}
+
+
         {% else %}
             Hello unknown person, it's to-do list. Please log in or register.
         {% endif %}
