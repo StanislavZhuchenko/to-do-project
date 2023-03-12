@@ -1,4 +1,31 @@
+{% extends 'base.html' %}
+{% block header %}
+<h1>{{ cur_task['title'] }}</h1>
+{% endblock %}
+{% block content %}
+<form action="{{ url_for('detailstask.update_task', id=cur_task['id']) }}" method="post">
+    <label for="priority">Priority</label>
+    <select id="priority" name="priority">
+        <option value="" {{'selected' if cur_task['priority'] == ''}}></option>
+        <option value="High" {{'selected' if cur_task['priority'] == 'High'}}>High</option>
+    </select>
+    <p>
+        <label for="title">Title</label>
+        <input id="title" name="title" value="{{ cur_task['title'] }}">
+    </p>
+    <p>
+        <label for="due_date">Due dates</label>
+        <input type="date" id="due_date" name="due_date" value="{{cur_task['due_date']}}">
+    </p>
+    <p>
+        <label for="description">Add note</label>
+        <textarea id="description" name="description" placeholder="Add note">{{cur_task['description']}}</textarea>
+    </p>
+    <input type="submit" value="Update">
+</form>
 
-<h1>{{ cur_task['title'], cur_task['id'] }}</h1>
-
+<form action="{{ url_for('index.index') }} " method="get">
+    <button>Back</button>
+</form>
+{% endblock %}
 
