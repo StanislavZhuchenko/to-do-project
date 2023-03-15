@@ -9,14 +9,14 @@ def index():
     db = get_db()
     user_id = session.get('user_id')
     error = None
+    status = 'In progress'
     if request.method == 'GET':
         tasks = db.execute(
-            'SELECT * FROM list WHERE list.user_id = ? ORDER BY priority DESC', (user_id, )
+            'SELECT * FROM list WHERE list.user_id = ? AND status = ? ORDER BY priority DESC', (user_id, status )
         ).fetchall()
 
     elif request.method == 'POST':
         title = request.form['title']
-        status = 'In progress'
         priority = request.form['priority']
 
         if not title:
@@ -47,4 +47,15 @@ def removetask():
         return redirect(url_for('index.index'))
 
 
-
+@bp.route('/done', methods=('POST', ))
+def mark_as_done():
+    db = get_db()
+    if request.method == 'POST':
+        values = request.form.getlist('task')
+        status = 'Done'
+        for value in values:
+            db.execute(
+                'UPDATE list SET status = ? WHERE id = ?', (status, value)
+            )
+            db.commit()
+        return redirect(url_for('index.index'))

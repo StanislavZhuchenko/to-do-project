@@ -1,5 +1,5 @@
 import os
-from . import db, user, index, detailstask
+from . import db, user, index, detailstask, completedtasks
 
 from flask import Flask
 
@@ -32,5 +32,7 @@ def create_app(test_config=None):
     app.register_blueprint(index.bp)
 
     app.register_blueprint(detailstask.bp)
+
+    app.register_blueprint(completedtasks.bp)
 
     return app
