@@ -1,12 +1,11 @@
 .list-group {
   max-width: 500px;
 /*  margin: 2rem auto; */
-
 }
+
 
 .form-check-input:checked + .form-checked-content {
   opacity: .5;
-
 }
 
 .form-control {
@@ -32,4 +31,12 @@ min-width: 500px;
 
 #bottom{
 margin-top:2em;
+}
+
+.dropdown{
+margin-top:5px;
+}
+
+.done_button{
+margin-top:1em;
 }

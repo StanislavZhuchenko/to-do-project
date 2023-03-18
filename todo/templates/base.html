@@ -4,7 +4,7 @@
     {% block head %}
     <link href="{{ url_for('static', filename='/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
-    <title>{% block title %}To-Do{% endblock %}</title>
+    <title>{% block title %}To Do{% endblock %}</title>
      {% endblock %}
 </head>
 <body>
@@ -15,7 +15,7 @@
             <div class="col"></div>
             <div class="col" id="center_col1">
 
-                <h1><a href="{{ url_for('index.index') }}" >To-Do</a></h1>
+                <h1><a href="{{ url_for('index.index') }}" >To Do</a></h1>
 
                 <header>
                        {% block header %}{% endblock %}

@@ -16,8 +16,8 @@
                     </select>
                 </div>
 
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary mb-3">Save</button>
+                <div class="col-auto mb-3">
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
 
@@ -25,35 +25,36 @@
 
         <div class="list-group w-auto">
             {% if tasks %}
-                <form method="post" action="{{ url_for('index.mark_as_done') }}">
+                <form class="form_list" method="post" action="{{ url_for('index.mark_as_done') }}">
                     {% for task in tasks %}
-                    {% if task['priority']=='1' %}
+                        {% if task['priority']=='1' %}
 
-                    <label class="list-group-item d-flex gap-3">
-                        <input class="form-check-input flex-shrink-0" style="font-size: 1.375em" type="checkbox" name="task" value="{{ task['id'] }}">
-                        <span class="pt-1 form-checked-content">
-                            <strong><a href="{{ url_for('detailstask.current_task', id=task['id']) }}" >{{task['title']}}</a></strong>
-                             <small class="d-block text-muted">
-                                {{ task['description'] if task['description'] != None  }}
-                             </small>
-                        </span>
-                    </label>
+                            <label class="list-group-item d-flex gap-3">
+                            <input class="form-check-input flex-shrink-0" style="font-size: 1.375em" type="checkbox" name="task" value="{{ task['id'] }}">
+                            <span class="pt-1 form-checked-content">
+                                <strong><a href="{{ url_for('detailstask.current_task', id=task['id']) }}" >{{task['title']}}</a></strong>
+                                 <small class="d-block text-muted">
+                                    {{ task['description'] if task['description'] != None  }}
+                                 </small>
+                            </span>
+                        </label>
 
-                    {% else %}
-                    <label class="list-group-item d-flex gap-3">
-                        <input class="form-check-input flex-shrink-0" style="font-size: 1.375em" type="checkbox" name="task" value="{{ task['id'] }}">
-                        <span class="pt-1 form-checked-content">
-                            <a href="{{ url_for('detailstask.current_task', id=task['id']) }}" >{{task['title']}}</a>
-                             <small class="d-block text-muted">
-                                {{ task['description'] if task['description'] != None  }}
-                             </small>
-                        </span>
-                    </label>
+                        {% else %}
+                            <label class="list-group-item d-flex gap-3">
+                            <input class="form-check-input flex-shrink-0" style="font-size: 1.375em" type="checkbox" name="task" value="{{ task['id'] }}">
+                            <span class="pt-1 form-checked-content">
+                                <a href="{{ url_for('detailstask.current_task', id=task['id']) }}" >{{task['title']}}</a>
+                                 <small class="d-block text-muted">
+                                    {{ task['description'] if task['description'] != None  }}
+                                 </small>
+                            </span>
+                        </label>
 
-                    {% endif %}
+                        {% endif %}
                     {% endfor %}
-
-                <button type="submit" class="btn btn-primary mb-3">Done</button>
+                    <div class="done_button">
+                        <button type="submit" class="btn btn-primary">Done</button>
+                    </div>
                 </form>
             {% endif %}
         </div>
