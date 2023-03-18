@@ -1,0 +1,35 @@
+.list-group {
+  max-width: 500px;
+/*  margin: 2rem auto; */
+
+}
+
+.form-check-input:checked + .form-checked-content {
+  opacity: .5;
+
+}
+
+.form-control {
+max-width: 293px;
+margin-right:7px;
+float: left;
+
+}
+.form-select {
+width: 108px;
+float: left;
+margin-right:7px;
+}
+
+#center_col1{
+min-width: 500px;
+text-align: center;
+}
+
+#center_col2{
+min-width: 500px;
+}
+
+#bottom{
+margin-top:2em;
+}

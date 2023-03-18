@@ -6,8 +6,8 @@
 <form action="{{ url_for('detailstask.update_task', id=cur_task['id']) }}" method="post">
     <label for="priority">Priority</label>
     <select id="priority" name="priority">
-        <option value="" {{'selected' if cur_task['priority'] == ''}}></option>
-        <option value="High" {{'selected' if cur_task['priority'] == 'High'}}>High</option>
+        <option value="0" {{'selected' if cur_task['priority'] == '0'}}>Regular</option>
+        <option value="1" {{'selected' if cur_task['priority'] == '1'}}>High</option>
     </select>
     <p>
         <label for="title">Title</label>

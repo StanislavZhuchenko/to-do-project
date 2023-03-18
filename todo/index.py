@@ -12,7 +12,7 @@ def index():
     status = 'In progress'
     if request.method == 'GET':
         tasks = db.execute(
-            'SELECT * FROM list WHERE list.user_id = ? AND status = ? ORDER BY priority DESC', (user_id, status )
+            'SELECT * FROM list WHERE list.user_id = ? AND status = ? ORDER BY priority ASC', (user_id, status )
         ).fetchall()
 
     elif request.method == 'POST':

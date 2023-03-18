@@ -3,50 +3,60 @@
 {% endblock %}
 {% block content %}
     {% if g.user %}
-        <div>
+
+
             <form method="post" action="{{ url_for('index.index') }}">
-                <hr>
-                <a>New task:</a>
-                <br>
-                <label for="title">Title</label>
-                <input id="title" name="title" placeholder="Add title">
-                <label for="priority">Priority</label>
-                <select id="priority" name="priority">
-                    <option value=""></option>
-                    <option value="High">High</option>
-                </select>
-                <input type="submit" value="Save">
-                <hr>
+                <input class="form-control" id="title" name="title" placeholder="Add new task...">
+
+                <div class="custom_select">
+                    <select class="form-select" id="priority" name="priority">
+                        <option selected>Priority</option>
+                        <option value="0">Regular</option>
+                        <option value="1">High</option>
+                    </select>
+                </div>
+
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">Save</button>
+                </div>
             </form>
-        </div>
-        <div>
-            <form action="{{ url_for('completedtasks.get_all_done') }}">
-                <button>List of completed tasks</button>
-            </form>
-        </div>
-        <br>
+
+
+
+        <div class="list-group w-auto">
             {% if tasks %}
                 <form method="post" action="{{ url_for('index.mark_as_done') }}">
                     {% for task in tasks %}
-                    {% if task['priority']=='High' %}
-                        <input type="checkbox" id="task" name="task" value="{{ task['id'] }}">
-                        <label for="task">
-                            <b><a href="{{ url_for('detailstask.current_task', id=task['id']) }}" >{{task['title']}}</a></b>
-                        </label>
-                        <br>
+                    {% if task['priority']=='1' %}
+
+                    <label class="list-group-item d-flex gap-3">
+                        <input class="form-check-input flex-shrink-0" style="font-size: 1.375em" type="checkbox" name="task" value="{{ task['id'] }}">
+                        <span class="pt-1 form-checked-content">
+                            <strong><a href="{{ url_for('detailstask.current_task', id=task['id']) }}" >{{task['title']}}</a></strong>
+                             <small class="d-block text-muted">
+                                {{ task['description'] if task['description'] != None  }}
+                             </small>
+                        </span>
+                    </label>
+
                     {% else %}
-                        <input type="checkbox" id="task2" name="task" value="{{ task['id'] }}">
-                        <label for="task2">
+                    <label class="list-group-item d-flex gap-3">
+                        <input class="form-check-input flex-shrink-0" style="font-size: 1.375em" type="checkbox" name="task" value="{{ task['id'] }}">
+                        <span class="pt-1 form-checked-content">
                             <a href="{{ url_for('detailstask.current_task', id=task['id']) }}" >{{task['title']}}</a>
-                        </label>
-                        <br>
+                             <small class="d-block text-muted">
+                                {{ task['description'] if task['description'] != None  }}
+                             </small>
+                        </span>
+                    </label>
+
                     {% endif %}
                     {% endfor %}
 
-                    <input type="submit" value="Done">
+                <button type="submit" class="btn btn-primary mb-3">Done</button>
                 </form>
             {% endif %}
-
+        </div>
 
         {% else %}
             Hello unknown person, it's to-do app. Please log in or register.
