@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session, abort
 from todo.db import get_db
 
 bp = Blueprint('detailstask', __name__, url_prefix='/task')
@@ -6,10 +6,18 @@ bp = Blueprint('detailstask', __name__, url_prefix='/task')
 
 @bp.route('/<int:id>')
 def current_task(id):
+    user_id = session.get('user_id')
     db = get_db()
+    error = None
     cur_task = db.execute(
         'SELECT * FROM list WHERE id = ?', (id, )
     ).fetchone()
+    if cur_task is None:
+        abort(404, f'Task doesn\'t exist.')
+    if user_id != cur_task['user_id']:
+        abort(403, f'ACCESS DENIED')
+        # error = f"user-id{user_id} - author-id{cur_task['user_id']}"
+    # flash(error)
     return render_template('tasks/detailstask.html', cur_task=cur_task)
 
 
