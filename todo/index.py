@@ -12,9 +12,8 @@ def index():
     status = 'In progress'
     if request.method == 'GET':
         tasks = db.execute(
-            'SELECT * FROM list WHERE list.user_id = ? AND status = ? ORDER BY priority ASC', (user_id, status )
+            'SELECT * FROM list WHERE list.user_id = ? AND status = ?', (user_id, status )
         ).fetchall()
-
     elif request.method == 'POST':
         title = request.form['title']
         priority = request.form['priority']
@@ -59,3 +58,51 @@ def mark_as_done():
             )
             db.commit()
         return redirect(url_for('index.index'))
+
+
+@bp.route('/sort_by_date_down')
+def sort_task_by_date_desc():
+    db = get_db()
+    user_id = session.get('user_id')
+    status = 'In progress'
+    if request.method == 'GET':
+        tasks = db.execute(
+            'SELECT * FROM list WHERE list.user_id = ? AND status = ? ORDER BY due_date DESC', (user_id, status )
+        ).fetchall()
+    return render_template('tasks/listoftasks.html', tasks=tasks)
+
+
+@bp.route('/sort_by_date_asc')
+def sort_task_by_date_asc():
+    db = get_db()
+    user_id = session.get('user_id')
+    status = 'In progress'
+    if request.method == 'GET':
+        tasks = db.execute(
+            'SELECT * FROM list WHERE list.user_id = ? AND status = ? ORDER BY due_date ASC', (user_id, status )
+        ).fetchall()
+    return render_template('tasks/listoftasks.html', tasks=tasks)
+
+
+@bp.route('/sort_by_priority_asc')
+def sort_by_priority_asc():
+    db = get_db()
+    user_id = session.get('user_id')
+    status = 'In progress'
+    if request.method == 'GET':
+        tasks = db.execute(
+            'SELECT * FROM list WHERE list.user_id = ? AND status = ? ORDER BY priority ASC', (user_id, status )
+        ).fetchall()
+    return render_template('tasks/listoftasks.html', tasks=tasks)
+
+
+@bp.route('/sort_by_priority_desc')
+def sort_by_priority_desc():
+    db = get_db()
+    user_id = session.get('user_id')
+    status = 'In progress'
+    if request.method == 'GET':
+        tasks = db.execute(
+            'SELECT * FROM list WHERE list.user_id = ? AND status = ? ORDER BY priority DESC', (user_id, status )
+        ).fetchall()
+    return render_template('tasks/listoftasks.html', tasks=tasks)

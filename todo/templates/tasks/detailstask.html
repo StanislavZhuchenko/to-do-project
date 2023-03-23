@@ -1,31 +1,51 @@
 {% extends 'base.html' %}
 {% block header %}
-<h1>{{ cur_task['title'] }}</h1>
 {% endblock %}
 {% block content %}
-<form action="{{ url_for('detailstask.update_task', id=cur_task['id']) }}" method="post">
-    <label for="priority">Priority</label>
-    <select id="priority" name="priority">
-        <option value="0" {{'selected' if cur_task['priority'] == '0'}}>Regular</option>
-        <option value="1" {{'selected' if cur_task['priority'] == '1'}}>High</option>
-    </select>
-    <p>
-        <label for="title">Title</label>
-        <input id="title" name="title" value="{{ cur_task['title'] }}">
-    </p>
-    <p>
-        <label for="due_date">Due dates</label>
-        <input type="date" id="due_date" name="due_date" value="{{cur_task['due_date']}}">
-    </p>
-    <p>
-        <label for="description">Add note</label>
-        <textarea id="description" name="description" placeholder="Add note">{{cur_task['description']}}</textarea>
-    </p>
-    <input type="submit" value="Update">
-</form>
+<div class="mb-3">
+    <form action="{{ url_for('detailstask.update_task', id=cur_task['id']) }}" method="post">
 
-<form action="{{ url_for('index.index') }} " method="get">
-    <button>Back</button>
-</form>
+        <div class="mb-3">
+<!--            <label class="form-label">Title</label>-->
+            <textarea class="form-control" name="title" rows="2">{{ cur_task['title'] }}</textarea>
+        </div>
+
+        <div class="mb-3" id="priority">
+            <label class="form-label">Priority</label>
+            <select class="form-select" id="priority_details" name="priority">
+                <option value="0" {{'selected' if cur_task['priority'] == '0'}}>Regular</option>
+                <option value="1" {{'selected' if cur_task['priority'] == '1'}}>High</option>
+            </select>
+        </div>
+
+        <div class="mb-3" id="due_date">
+            <label class="form-label">Due dates</label>
+            <input type="date" class="form-control" name="due_date" value="{{cur_task['due_date']}}">
+        </div>
+       <!--            <label for="description">Add note</label>-->
+            <textarea class="form-control" rows="3" name="description" placeholder="Add note">{{cur_task['description']}}</textarea>
+
+<!--        <input type="submit" value="Update">-->
+        <div class="done_button">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+
+
+    <form action="{{ url_for('index.index') }} " method="get">
+        <div class="done_button">
+            <button type="submit" class="btn btn-secondary">Back</button>
+        </div>
+    </form>
+
+    <form action="{{ url_for('detailstask.delete_current_task', id=cur_task['id'] ) }} " method="post">
+        <div class="delete_button">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </form>
+
+
+
+</div>
 {% endblock %}
 
