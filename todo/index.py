@@ -43,7 +43,7 @@ def removetask():
                 'DELETE FROM list WHERE id = ?', (value, )
             )
             db.commit()
-        return redirect(url_for('index.index'))
+        return redirect(url_for('completedtasks.get_all_done'))
 
 
 @bp.route('/done', methods=('POST', ))

@@ -1,22 +1,33 @@
 {% extends 'base.html' %}
 {% block title %}Completed tasks{% endblock %}
 {% block header %}
-<h1>Completed tasks:</h1>
 {% endblock %}
 
 {% block content %}
 
     {% if completed_tasks %}
-        <form method="post" action="{{ url_for('index.removetask') }}">
-            {% for compl_task in completed_tasks %}
-                <input type="checkbox" id="compl_task" name="task" value="{{ compl_task['id'] }}">
-                <label for="compl_task">
-                    <s><a href="{{ url_for('detailstask.current_task', id=compl_task['id']) }}" >{{compl_task['title']}}</a></s>
-                </label>
-                <br>
-            {% endfor %}
-            <input type="submit" value="Delete">
-        </form>
+    <div>Completed tasks</div>
+        <div class="list-group w-auto">
+            <form class="form_list" method="post" action="{{ url_for('index.removetask') }}">
+                {% for compl_task in completed_tasks %}
+                    <label class="list-group-item d-flex gap-3">
+                        <input class="form-check-input flex-shrink-0" type="checkbox" id="compl_task" name="task" value="{{ compl_task['id'] }}">
+                        <span>
+                            <s><a href="{{ url_for('detailstask.current_task', id=compl_task['id']) }}" >{{compl_task['title']}}</a></s>
+                        </span>
+                    </label>
+                {% endfor %}
+
+
+                    <div class="done_button">
+                        <button formaction="{{ url_for('index.index') }}" formmethod="get" class="btn btn-secondary">Back</button>
+                    </div>
+
+                <div class="delete_button">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
     {% else %}
         <p>You don't have completed tasks</p>
     {% endif %}
