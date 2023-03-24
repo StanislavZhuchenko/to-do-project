@@ -36,3 +36,9 @@ def create_app(test_config=None):
     app.register_blueprint(completedtasks.bp)
 
     return app
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return "Hello this is the new version!"
