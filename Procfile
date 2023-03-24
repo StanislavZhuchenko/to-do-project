@@ -1,1 +1,1 @@
-web: gunicorn todo/__init__.py:app
+web: gunicorn .todo.__init__.py:app
