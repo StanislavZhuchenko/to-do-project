@@ -1,1 +1,1 @@
-web: gunicorn todo:create_app()
+web: gunicorn todo:app
